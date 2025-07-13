@@ -1,0 +1,87 @@
+---
+title: "How-to create a declarative MacOS setup the simple way 1."
+description: "A small write-up about how can you make your MacOS install almost-fully declarative with Brewfile and shell scripts."
+pubDate: "2025-07-14"
+heroImage: "https://images.unsplash.com/photo-1607114015068-c9df0f325d75?w=800&h=400&fit=crop"
+tags: ["macos", "brew", "declarative", "automation"]
+---
+
+# How-to create a declarative MacOS setup the simple way™ nr.1
+
+As you read more and more about dotfiles, dotfile managers or you are comming from some sort of linux community like me
+you probably got overwhelmed and bored by some nerds over explaining and analyzing dotfile management.
+
+Every time you try to find some solution you will most definetly find at least one post that will try to convince you that
+you must use a tool like [Chezmoi](https://www.chezmoi.io) or you have to use [the Nix package mansger](https://github.com/nix-darwin/nix-darwin)
+or use someone else's dotfile template on your mac to properly cofigure it.
+
+While it's good for some people and I respect that mentality I've always find these kind of solutions too "scary" and overly complex.
+I mean I only need to change a few defaults (pun intended), install a bunch of packages and copy a few config files, I don't want to learn
+a whole new language, organize the stuff into N different folders and trust a tool that will make the right calls for me.
+
+## Setting the correct requirements
+
+Since my use case here (and I think most people's case) are easy to solve and doesn't required such complex abstractions
+that the before mentioned tools offer, we can strip down the requirement to the bare minimum and explore what the already existing tools on our machine can do!
+
+As I've already mentioned this a few times, I lowkey have 3 really simple requirements:
+
+- install all the required packages
+- have some config files on the correct place
+- override a few defaults
+
+There are some really obvious simple solutions to these problems that we already know: shell scripts and symlinks, sounds easy enough right?
+While these solutions are mostly fine at the end of the day declarative configurations are way easier to read and write, let's figure out the solution 1-by-1.
+
+## Brewfile and `brew bundle`
+
+You probably already have brew installed on your machine, if you go on an adventure in brew's documentation you can quickly find yourself
+discovering [`brew bundle`](https://docs.brew.sh/Brew-Bundle-and-Brewfile) a command.
+Essentially you can create a file that's using a Ruby based DSL, to specify the packages you want to install.
+The good news that it already supports multiple package types and other package managers besides brew,
+so we can essentially use this to declare all the packages we need to install in a simple file like this:
+
+```ruby
+brew "fzf"
+brew "gh"
+brew "go"
+
+# or you can use full pacakge names
+brew "jesseduffield/lazygit/lazygit"
+
+# use cask and fronts
+cask "font-jetbrains-mono-nerd-font"
+cask "ghostty"
+
+# even apps from the store
+mas "Refined GitHub", id: 1519867270
+
+# or just straight up write ruby style conditions
+if File.exist?(File.expand_path("~/.work"))
+    mas "Slack", id: 803453959
+end
+```
+
+**However like with every tool there are some catches:**
+
+- `mas` only works if it's installed
+- `mas` based dependencies will not install automatically (the CLI will fail) if you haven't manually "purchased" an app and it's not already in your library
+- conditions can be tricky
+- the documentation is straight up dogwater, nobody will tell you that u can use loops, conditions and variable substitution
+- since it has been moved to the main repo even the existing really good README.md went away
+
+**There are some upsides too:**
+
+- it's in the main `Homebrew/brew` repo and is a part of brew so you don't need a separate tool for it
+- the CLI commands are super useful running `brew bundle check || brew bundle install` or simply `brew bundle` is awesome
+- it will take care of updates for you
+- you can easily remove packages with `brew bundle cleanup`
+- you can even easily migrate to this thanks to `brew bundle dump` which will create a Brewfile from your current packages
+
+## Closure
+
+This is a perfect solution for us we can still "play around" and avoid "state drifting" by periodically running `brew bundle dump`.
+
+For live example check out my [Brewfile](https://github.com/Shikachuu/dotfiles/blob/main/macos/Brewfile) in my dotfiles repo!
+
+In the next iteration we will focus on the configuration handling part!

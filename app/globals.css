@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50;
+    @apply transition-colors duration-300 ease-in-out;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-neutral-200 dark:bg-neutral-800;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-neutral-400 dark:bg-neutral-600 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-neutral-500 dark:bg-neutral-500;
+  }
+}
+
+@layer components {
+  .brutal-card {
+    @apply bg-white dark:bg-neutral-900 border-4 border-black dark:border-white;
+    @apply shadow-brutal dark:shadow-none;
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  .brutal-card:hover {
+    @apply shadow-brutal-lg translate-x-1 translate-y-1;
+  }
+
+  .brutal-button {
+    @apply px-6 py-3 font-bold text-white border-4 border-black;
+    @apply transition-all duration-200 ease-in-out;
+    @apply active:translate-x-1 active:translate-y-1 active:shadow-brutal-sm;
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  .brutal-button-primary {
+    @apply brutal-button bg-primary shadow-brutal-primary;
+    @apply hover:bg-primary-dark hover:shadow-none hover:translate-x-1 hover:translate-y-1;
+  }
+
+  .brutal-button-secondary {
+    @apply brutal-button bg-secondary text-black shadow-brutal-secondary;
+    @apply hover:bg-secondary-dark hover:shadow-none hover:translate-x-1 hover:translate-y-1;
+  }
+
+  .brutal-button-accent {
+    @apply brutal-button bg-accent shadow-brutal-accent;
+    @apply hover:bg-accent-dark hover:shadow-none hover:translate-x-1 hover:translate-y-1;
+  }
+
+  .brutal-input {
+    @apply px-4 py-3 border-4 border-black dark:border-white;
+    @apply bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50;
+    @apply focus:outline-none focus:ring-0;
+    @apply transition-all duration-200 ease-in-out;
+    @apply min-h-[44px];
+  }
+
+  .brutal-input:focus {
+    @apply shadow-brutal-primary translate-x-1 translate-y-1;
+  }
+
+  .prose-brutal {
+    @apply prose prose-lg dark:prose-invert max-w-none;
+    @apply prose-headings:font-bold prose-headings:text-neutral-900 dark:prose-headings:text-neutral-50;
+    @apply prose-a:text-primary prose-a:no-underline prose-a:font-semibold;
+    @apply prose-code:bg-neutral-200 dark:prose-code:bg-neutral-800;
+    @apply prose-code:px-2 prose-code:py-1 prose-code:rounded-none;
+    @apply prose-pre:bg-neutral-900 dark:prose-pre:bg-neutral-800;
+    @apply prose-pre:border-4 prose-pre:border-black dark:prose-pre:border-white;
+  }
+}
+
+/* Search highlighting */
+.search-highlight {
+  @apply bg-secondary text-black px-1 font-semibold;
+}
+
+/* Loading animation */
+.loading-dots {
+  @apply inline-flex space-x-1;
+}
+
+.loading-dots > div {
+  @apply w-2 h-2 bg-primary rounded-full animate-pulse;
+  animation-delay: calc(var(--i) * 0.1s);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .brutal-card,
+  .brutal-button,
+  .brutal-input {
+    border-width: 6px !important;
+  }
+
+  .focus\:ring-4:focus {
+    --tw-ring-width: 6px !important;
+  }
+}
+
+/* Focus visible for better keyboard navigation */
+.focus-visible\:ring-4:focus-visible {
+  @apply ring-4 ring-primary/50 ring-offset-2;
+}
