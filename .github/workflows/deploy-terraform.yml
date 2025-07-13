@@ -1,0 +1,46 @@
+name: Deploy Cloudflare Infrastructure with OpenTofu
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'terraform/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup OpenTofu
+        uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: latest
+
+      - name: Configure fake AWS credentials for CF R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $GITHUB_ENV
+
+      - name: Initialize OpenTofu
+        working-directory: ./terraform
+        run: tofu init -backend-config=backend.hcl
+
+      - name: Validate OpenTofu configuration
+        working-directory: ./terraform
+        run: tofu validate
+
+      - name: Plan OpenTofu changes
+        working-directory: ./terraform
+        run: tofu plan -o plan
+
+      - name: Apply OpenTofu changes
+        working-directory: ./terraform
+        run: tofu apply -auto-approve plan
