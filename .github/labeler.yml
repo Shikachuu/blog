@@ -1,0 +1,21 @@
+"ci":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "mise.toml"
+      - ".github/**/*"
+
+"content":
+  - changed-files:
+    -any-glob-to-any-file:
+      - "content/**/*"
+
+"iac":
+  - changed-files:
+      - any-glob-to-any-file:
+        - "terraform/**/*"
+
+"dependencies":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "package.json"
+          - "bun.lock"
