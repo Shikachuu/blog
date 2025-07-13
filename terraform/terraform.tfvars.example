@@ -1,0 +1,20 @@
+# Cloudflare API token with Pages and DNS permissions
+cloudflare_api_token = "your-api-token-here"
+
+# Cloudflare account ID
+cloudflare_account_id = "your-account-id-here"
+
+# Cloudflare zone ID for picloud.hu domain
+cloudflare_zone_id = "your-zone-id-here"
+
+# GitHub repository details
+github_owner = "your-github-username"
+github_repo = "your-repo-name"
+
+# Optional: Override project name (defaults to "personal-blog")
+# project_name = "my-blog"
+
+# R2 backend uses environment variables for credentials:
+# export CLOUDFLARE_R2_TOKEN_ID="your-r2-token-id"  
+# export CLOUDFLARE_R2_TOKEN_SECRET="your-r2-token-secret"
+# (You can generate R2 tokens from Cloudflare dashboard)
