@@ -1,7 +1,6 @@
 import type { Metadata, ResolvingMetadata } from "next"
 import { notFound } from "next/navigation"
-import { serialize } from "next-mdx-remote/serialize"
-import { CustomMDX } from "@/components/MDXRender"
+import { MDXRemote } from "next-mdx-remote/rsc"
 import { getAllPosts, getPostBySlug } from "@/lib/blog"
 
 type Props = {
@@ -46,13 +45,11 @@ export default async function Page({ params }: Props) {
     notFound()
   }
 
-  const mdxSource = await serialize(post.content)
-
   return (
     <main className="min-h-screen py-20">
       <section className="px-10 pt-20">
         <article className="prose dark:prose-invert mx-auto">
-          <CustomMDX {...mdxSource} />
+          <MDXRemote source={post.content} />
         </article>
       </section>
     </main>
