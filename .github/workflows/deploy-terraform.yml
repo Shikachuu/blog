@@ -1,6 +1,7 @@
 name: Deploy Cloudflare Infrastructure with OpenTofu
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
