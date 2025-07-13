@@ -10,7 +10,7 @@ export default defineConfig({
     setupFiles: ["./test/setup.ts"],
     include: ["**/*.{test,spec}.{js,ts,tsx}"],
     coverage: {
-      reporter: ["text", "json", "html"],
+      reporter: ["json", "json-summary"],
       exclude: ["node_modules/", "test/setup.ts", "**/*.d.ts", "**/*.config.*", "dist/", ".next/"],
     },
   },

@@ -60,4 +60,11 @@ jobs:
         run: bun install
 
       - name: Run linter
-        run: bun 
+        run: bun run biome ci --error-on-warnings --reporter=github
+
+      - name: Run tests
+        run: bun run test:coverage
+
+      - name: Coverage Report
+        uses: davelosert/vitest-coverage-report-action@v2
+        if: always()
