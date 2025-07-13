@@ -40,7 +40,7 @@ jobs:
 
       - name: Plan OpenTofu changes
         working-directory: ./terraform
-        run: tofu plan -out plan
+        run: tofu plan -var="cloudflare_api_token=${{ secrets.CLOUDFLARE_API_TOKEN }}" -out plan
 
       - name: Apply OpenTofu changes
         working-directory: ./terraform
