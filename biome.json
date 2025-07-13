@@ -11,8 +11,11 @@
       "**",
       "!**/dist/**",
       "!**/.next/**",
+      "!**/out/**",
       "!**/coverage/**",
       "!**/node_modules/**",
+      "!**/terraform/**",
+      "!**/.github/**",
       "!**/*.min.js",
       "!**/*.min.css"
     ]
