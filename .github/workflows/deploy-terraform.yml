@@ -39,7 +39,7 @@ jobs:
 
       - name: Plan OpenTofu changes
         working-directory: ./terraform
-        run: tofu plan -o plan
+        run: tofu plan -out plan
 
       - name: Apply OpenTofu changes
         working-directory: ./terraform
