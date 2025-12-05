@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server"
 import { getAllPosts, type SearchPost } from "@/lib/blog"
 
+export const dynamic = "force-static"
+
 export async function GET() {
   try {
     const posts = await getAllPosts()
