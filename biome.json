@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -9,13 +9,13 @@
     "ignoreUnknown": false,
     "includes": [
       "**",
-      "!**/dist/**",
-      "!**/.next/**",
-      "!**/out/**",
-      "!**/coverage/**",
-      "!**/node_modules/**",
-      "!**/terraform/**",
-      "!**/.github/**",
+      "!**/dist",
+      "!**/.next",
+      "!**/out",
+      "!**/coverage",
+      "!**/node_modules",
+      "!**/terraform",
+      "!**/.github",
       "!**/*.min.js",
       "!**/*.min.css"
     ]
@@ -129,6 +129,15 @@
   "json": {
     "formatter": {
       "trailingCommas": "none"
+    }
+  },
+  "css": {
+    "linter": {
+      "enabled": true
+    },
+    "parser": {
+      "cssModules": true,
+      "tailwindDirectives": true
     }
   }
 }

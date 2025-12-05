@@ -3,6 +3,8 @@ import react from "@vitejs/plugin-react"
 import { defineConfig } from "vitest/config"
 
 export default defineConfig({
+  // biome-ignore lint/suspicious/noTsIgnore: seems like one of the libraries doesn't export the right type
+  // @ts-ignore
   plugins: [react()],
   test: {
     globals: true,
