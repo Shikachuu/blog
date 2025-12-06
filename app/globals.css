@@ -1,6 +1,62 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  /* Custom Colors */
+  --color-primary: #0066ff;
+  --color-primary-dark: #0052cc;
+  --color-secondary: #00ff88;
+  --color-secondary-dark: #00cc6a;
+  --color-accent: #ff0066;
+  --color-accent-dark: #cc0052;
+  --color-orange: #ff6600;
+  --color-orange-dark: #cc5200;
+
+  /* Neutral Colors */
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+  --color-neutral-950: #0a0a0a;
+
+  /* Font Families */
+  --font-family-sans: var(--font-inter), system-ui, sans-serif;
+  --font-family-mono: var(--font-jetbrains-mono), Consolas, monospace;
+
+  /* Custom Shadows */
+  --shadow-brutal: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-brutal-sm: 3px 3px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-brutal-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-brutal-primary: 6px 6px 0px 0px #0066ff;
+  --shadow-brutal-secondary: 6px 6px 0px 0px #00ff88;
+  --shadow-brutal-accent: 6px 6px 0px 0px #ff0066;
+  --shadow-brutal-orange: 6px 6px 0px 0px #ff6600;
+
+  /* Custom Animations */
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-pulse-slow: pulse 3s ease-in-out infinite;
+
+  /* Keyframes */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Min Height/Width */
+  --min-height-touch: 44px;
+  --min-width-touch: 44px;
+}
 
 @layer base {
   html {
@@ -49,17 +105,29 @@
   }
 
   .brutal-button-primary {
-    @apply brutal-button bg-primary shadow-brutal-primary;
+    @apply px-6 py-3 font-bold text-white border-4 border-black;
+    @apply bg-primary shadow-brutal-primary;
+    @apply transition-all duration-200 ease-in-out;
+    @apply active:translate-x-1 active:translate-y-1 active:shadow-brutal-sm;
+    @apply min-h-[44px] min-w-[44px];
     @apply hover:bg-primary-dark hover:shadow-none hover:translate-x-1 hover:translate-y-1;
   }
 
   .brutal-button-secondary {
-    @apply brutal-button bg-secondary text-black shadow-brutal-secondary;
+    @apply px-6 py-3 font-bold border-4 border-black;
+    @apply bg-secondary text-black shadow-brutal-secondary;
+    @apply transition-all duration-200 ease-in-out;
+    @apply active:translate-x-1 active:translate-y-1 active:shadow-brutal-sm;
+    @apply min-h-[44px] min-w-[44px];
     @apply hover:bg-secondary-dark hover:shadow-none hover:translate-x-1 hover:translate-y-1;
   }
 
   .brutal-button-accent {
-    @apply brutal-button bg-accent shadow-brutal-accent;
+    @apply px-6 py-3 font-bold text-white border-4 border-black;
+    @apply bg-accent shadow-brutal-accent;
+    @apply transition-all duration-200 ease-in-out;
+    @apply active:translate-x-1 active:translate-y-1 active:shadow-brutal-sm;
+    @apply min-h-[44px] min-w-[44px];
     @apply hover:bg-accent-dark hover:shadow-none hover:translate-x-1 hover:translate-y-1;
   }
 
@@ -104,9 +172,9 @@
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
   * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
   }
 }
 
@@ -115,15 +183,44 @@
   .brutal-card,
   .brutal-button,
   .brutal-input {
-    border-width: 6px !important;
+    border-width: 6px;
   }
 
   .focus\:ring-4:focus {
-    --tw-ring-width: 6px !important;
+    --tw-ring-width: 6px;
   }
 }
 
 /* Focus visible for better keyboard navigation */
 .focus-visible\:ring-4:focus-visible {
   @apply ring-4 ring-primary/50 ring-offset-2;
+}
+
+/* Custom Utilities */
+@utility touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+@utility focus-ring {
+  outline: 3px solid transparent;
+  outline-offset: 2px;
+
+  &:focus {
+    outline-color: #0066ff;
+  }
+
+  &:focus-visible {
+    outline-color: #0066ff;
+  }
+}
+
+@utility focus-ring-dark {
+  .dark &:focus {
+    outline-color: #00ff88;
+  }
+
+  .dark &:focus-visible {
+    outline-color: #00ff88;
+  }
 }

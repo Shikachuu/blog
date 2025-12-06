@@ -252,8 +252,12 @@ describe("WCAG 2.1 AA Compliance Tests", () => {
         const links = screen.getAllByRole("link")
 
         expect(nav.tagName).toBe("NAV")
-        buttons.forEach(button => expect(button.tagName).toBe("BUTTON"))
-        links.forEach(link => expect(link.tagName).toBe("A"))
+        buttons.forEach(button => {
+          expect(button.tagName).toBe("BUTTON")
+        })
+        links.forEach(link => {
+          expect(link.tagName).toBe("A")
+        })
       })
 
       it("should provide proper name, role, and value for all components", () => {

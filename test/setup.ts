@@ -133,7 +133,6 @@ Object.defineProperty(window, "matchMedia", {
 // Mock scrollTo
 Object.defineProperty(window, "scrollTo", {
   writable: true,
-  // biome-ignore lint/complexity/useArrowFunction: arguments are only available in "old-school" functions
   value: function (coords: { top?: number; behavior?: string } | number, _y?: number) {
     let targetY = typeof coords === "number" ? coords : coords.top
     targetY ??= typeof arguments[0] === "number" ? arguments[0] : 0
@@ -160,7 +159,9 @@ const localStorageMock = {
     delete localStorageStore[key]
   }),
   clear: vi.fn(() => {
-    Object.keys(localStorageStore).forEach(key => delete localStorageStore[key])
+    Object.keys(localStorageStore).forEach(key => {
+      delete localStorageStore[key]
+    })
   }),
   length: 0,
   key: vi.fn((_index: number) => null),
@@ -178,7 +179,9 @@ beforeEach(() => {
   window.scrollY = 0
 
   // Reset localStorage store
-  Object.keys(localStorageStore).forEach(key => delete localStorageStore[key])
+  Object.keys(localStorageStore).forEach(key => {
+    delete localStorageStore[key]
+  })
 
   // Clear localStorage mock call history
   localStorageMock.getItem.mockClear()
@@ -190,7 +193,9 @@ beforeEach(() => {
 // Clean up after each test
 afterEach(() => {
   // Reset any global state
-  Object.keys(localStorageStore).forEach(key => delete localStorageStore[key])
+  Object.keys(localStorageStore).forEach(key => {
+    delete localStorageStore[key]
+  })
   window.scrollY = 0
 
   // Clear all mocks
